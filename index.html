@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Appeal Center | Submit an Appeal</title>
+    <style>
+        :root {
+            --meta-blue: #1877F2;
+            --meta-blue-dark: #166FE5;
+            --meta-dark: #050505;
+            --meta-gray-dark: #65676B;
+            --meta-gray-medium: #8A8D91;
+            --meta-gray-light: #E4E6EB;
+            --meta-bg: #F0F2F5;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--meta-bg);
+            color: var(--meta-dark);
+            line-height: 1.5;
+        }
+        
+        /* Header */
+        .meta-header {
+            background-color: var(--white);
+            height: 60px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .meta-logo {
+            height: 36px;
+        }
+        
+        /* Main Content */
+        .appeal-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .appeal-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+        
+        .appeal-hero {
+            background: linear-gradient(135deg, var(--meta-blue) 0%, var(--meta-blue-dark) 100%);
+            color: var(--white);
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .appeal-hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .appeal-hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 24px;
+        }
+        
+        .appeal-content {
+            padding: 40px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--meta-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title svg {
+            margin-right: 12px;
+            color: var(--meta-blue);
+        }
+        
+        .guidelines-list {
+            margin-bottom: 32px;
+        }
+        
+        .guidelines-list li {
+            margin-bottom: 12px;
+            padding-left: 8px;
+            color: var(--meta-gray-dark);
+        }
+        
+        .appeal-cta {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--meta-gray-light);
+        }
+        
+        /* Button */
+        .meta-button {
+            background-color: var(--meta-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
+        }
+        
+        .meta-button:hover {
+            background-color: var(--meta-blue-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
+        }
+        
+        .meta-button svg {
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        .meta-footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--meta-gray-medium);
+            font-size: 14px;
+        }
+        
+        /* Popup Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background-color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--meta-gray-light);
+        }
+        
+        .modal-logo {
+            height: 28px;
+        }
+        
+        .modal-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--meta-dark);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--meta-gray-medium);
+            padding: 4px;
+        }
+        
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .video-container {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+        
+        .video-note {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--meta-gray-dark);
+            font-style: italic;
+        }
+        
+        .guidelines-text {
+            background-color: var(--meta-bg);
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--meta-gray-dark);
+            line-height: 1.6;
+        }
+        
+        .input-group {
+            margin-bottom: 16px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--meta-dark);
+            font-size: 14px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--meta-gray-light);
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--meta-blue);
+            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+        }
+        
+        .modal-footer {
+            padding: 16px 24px;
+            background-color: var(--white);
+            border-top: 1px solid var(--meta-gray-light);
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        /* Password Modal */
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+        
+        .password-content {
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .password-logo {
+            height: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .password-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--meta-dark);
+        }
+        
+        .password-description {
+            color: var(--meta-gray-dark);
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+        
+        /* Success Popup */
+        .success-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 350px;
+            padding: 25px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+            text-align: center;
+            z-index: 1002;
+        }
+        
+        .success-logo {
+            height: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            font-size: 16px;
+            color: var(--meta-dark);
+            margin-bottom: 20px;
+        }
+        
+        .success-close {
+            background-color: var(--meta-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .success-close:hover {
+            background-color: var(--meta-blue-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .appeal-hero {
+                padding: 32px 20px;
+            }
+            
+            .appeal-hero h1 {
+                font-size: 26px;
+            }
+            
+            .appeal-content {
+                padding: 32px 20px;
+            }
+            
+            .modal-content, .password-content {
+                margin: 0 20px;
+                max-height: 90vh;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .success-popup {
+                width: 300px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+        
+    <!-- Header -->
+    <header class="meta-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/800px-Meta_Platforms_Inc._logo.svg.png" alt="Meta" class="meta-logo">
+    </header>
+    
+    <!-- Main Content -->
+    <main class="appeal-container">
+        <div class="appeal-card">
+            <div class="appeal-hero">
+                <h1>Submit an Appeal</h1>
+                <p>If you believe we made a mistake in removing your content or restricting your account, you can submit an appeal for review.</p>
+            </div>
+            
+            <div class="appeal-content">
+                <div class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                    <span>Community Guidelines Overview</span>
+                </div>
+                
+                <p>We remove content that violates our <a href="#" style="color: var(--meta-blue); text-decoration: none;">Community Standards</a>. Common violations include:</p>
+                
+                <ul class="guidelines-list">
+                    <li>Hate speech or symbols</li>
+                    <li>Bullying and harassment</li>
+                    <li>Nudity or sexual activity</li>
+                    <li>Violent or graphic content</li>
+                    <li>Intellectual property violations</li>
+                    <li>Spam or misinformation</li>
+                </ul>
+                
+                <div class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.32c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
+                    </svg>
+                    <span>Appeal Process</span>
+                </div>
+                
+                <p>When you submit an appeal:</p>
+                <ul class="guidelines-list">
+                    <li>Our team will review your content within 7 business days</li>
+                    <li>We'll send a notification to your account email</li>
+                    <li>If approved, your content will be restored</li>
+                    <li>For repeated violations, additional restrictions may apply</li>
+                </ul>
+                
+                <div class="appeal-cta">
+                    <form method="POST">
+                        <button type="submit" name="open_modal" class="meta-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            Submit Appeal Now
+                        </button>
+                    </form>
+                    <p style="margin-top: 16px; color: var(--meta-gray-medium);">Our team will review your request</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="meta-footer">
+        <p>© 2023 Meta. All rights reserved.</p>
+    </footer>
+    
+        
+        
+    </body>
+</html>
